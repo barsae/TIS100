@@ -36,5 +36,19 @@ namespace TIS100.Test {
 
             Assert.AreEqual(2, chip.Acc.Value);
         }
+
+        [TestMethod]
+        public void Add_Works() {
+            var operations = new List<IOperation>() {
+                new Mov(new Up(), new Acc()),
+                new Add(new Up())
+            };
+            var chip = new AssemblyChip(GetStream(), null, null, null, operations);
+
+            chip.Execute();
+            chip.Execute();
+
+            Assert.AreEqual(3, chip.Acc.Value);
+        }
     }
 }

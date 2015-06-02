@@ -37,10 +37,18 @@ namespace TIS100 {
             Value = value.Value;
         }
 
+        public Number Copy() {
+            return new Number(Value);
+        }
+
         public static Number operator+(Number one, Number two) {
             return new Number(one.Value + two.Value);
         }
 
+        public static Number operator-(Number one) {
+            return new Number(-one.Value);
+        }
+        
         public static Number operator-(Number one, Number two) {
             return new Number(one.Value - two.Value);
         }

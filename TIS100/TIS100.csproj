@@ -44,6 +44,14 @@
     <Compile Include="AssemblyChip.cs" />
     <Compile Include="BaseChip.cs" />
     <Compile Include="InputStream.cs" />
+    <Compile Include="Operations\Sav.cs" />
+    <Compile Include="Operations\Swp.cs" />
+    <Compile Include="Operations\Jlz.cs" />
+    <Compile Include="Operations\Jgz.cs" />
+    <Compile Include="Operations\Jez.cs" />
+    <Compile Include="Operations\Jro.cs" />
+    <Compile Include="Operations\Jmp.cs" />
+    <Compile Include="Operations\Neg.cs" />
     <Compile Include="Operations\Sub.cs" />
     <Compile Include="Operations\IOperation.cs" />
     <Compile Include="Number.cs" />
