@@ -9,9 +9,9 @@ namespace TIS100.Operations {
         public Neg() {
         }
 
-        public bool Execute(AssemblyChip chip) {
+        public IOperationResult Execute(AssemblyChip chip) {
             chip.Acc = -chip.Acc;
-            return true;
+            return OperationResult.Advance;
         }
     }
 }

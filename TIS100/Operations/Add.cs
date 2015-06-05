@@ -12,14 +12,14 @@ namespace TIS100.Operations {
             this.Source = source;
         }
 
-        public bool Execute(AssemblyChip chip) {
+        public IOperationResult Execute(AssemblyChip chip) {
             var source = Source.Reference(chip);
 
             if (source.Readable()) {
                 chip.Acc = chip.Acc + source.Read();
-                return true;
+                return OperationResult.Advance;
             }
-            return false;
+            return OperationResult.Block;
         }
     }
 }

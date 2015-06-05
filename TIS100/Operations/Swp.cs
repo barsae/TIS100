@@ -9,11 +9,11 @@ namespace TIS100.Operations {
         public Swp() {
         }
 
-        public bool Execute(AssemblyChip chip) {
+        public IOperationResult Execute(AssemblyChip chip) {
             var swap = chip.Acc;
             chip.Acc = chip.Bak;
             chip.Bak = swap;
-            return true;
+            return OperationResult.Advance;
         }
     }
 }

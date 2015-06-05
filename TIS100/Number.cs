@@ -5,10 +5,10 @@ using System.Text;
 
 namespace TIS100 {
     public class Number : RW {
-        public int Value { get; set; }
+        private int value;
 
         public Number(int value) {
-            this.Value = value;
+            this.value = value;
         }
 
         public static IEnumerable<Number> Convert(IEnumerable<int> values) {
@@ -18,7 +18,7 @@ namespace TIS100 {
         }
 
         public override string ToString() {
-            return this.Value.ToString();
+            return this.value.ToString();
         }
 
         public bool Readable() {
@@ -33,24 +33,28 @@ namespace TIS100 {
             return this;
         }
 
-        public void Write(Number value) {
-            Value = value.Value;
+        public void Write(Number newValue) {
+            this.value = newValue.value;
         }
 
         public Number Copy() {
-            return new Number(Value);
+            return new Number(value);
         }
 
         public static Number operator+(Number one, Number two) {
-            return new Number(one.Value + two.Value);
+            return new Number(one.value + two.value);
         }
 
         public static Number operator-(Number one) {
-            return new Number(-one.Value);
+            return new Number(-one.value);
         }
         
         public static Number operator-(Number one, Number two) {
-            return new Number(one.Value - two.Value);
+            return new Number(one.value - two.value);
+        }
+
+        public int ToInteger() {
+            return value;
         }
     }
 }

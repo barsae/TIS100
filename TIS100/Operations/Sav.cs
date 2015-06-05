@@ -9,9 +9,9 @@ namespace TIS100.Operations {
         public Sav() {
         }
 
-        public bool Execute(AssemblyChip chip) {
+        public IOperationResult Execute(AssemblyChip chip) {
             chip.Bak = chip.Acc.Copy();
-            return true;
+            return OperationResult.Advance;
         }
     }
 }

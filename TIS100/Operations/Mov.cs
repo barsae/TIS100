@@ -14,15 +14,15 @@ namespace TIS100.Operations {
             this.Destination = destination;
         }
 
-        public bool Execute(AssemblyChip chip) {
+        public IOperationResult Execute(AssemblyChip chip) {
             var source = Source.Reference(chip);
             var destination = Destination.Reference(chip);
 
             if (source.Readable() && destination.Writeable()) {
                 destination.Write(source.Read());
-                return true;
+                return OperationResult.Advance;
             }
-            return false;
+            return OperationResult.Block;
         }
     }
 }

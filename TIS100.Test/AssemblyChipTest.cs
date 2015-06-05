@@ -21,7 +21,7 @@ namespace TIS100.Test {
 
             chip.Execute();
 
-            Assert.AreEqual(1, chip.Acc.Value);
+            Assert.AreEqual(1, chip.Acc.ToInteger());
         }
 
         [TestMethod]
@@ -34,7 +34,7 @@ namespace TIS100.Test {
             chip.Execute();
             chip.Execute();
 
-            Assert.AreEqual(2, chip.Acc.Value);
+            Assert.AreEqual(2, chip.Acc.ToInteger());
         }
 
         [TestMethod]
@@ -48,7 +48,7 @@ namespace TIS100.Test {
             chip.Execute();
             chip.Execute();
 
-            Assert.AreEqual(3, chip.Acc.Value);
+            Assert.AreEqual(3, chip.Acc.ToInteger());
         }
     }
 }

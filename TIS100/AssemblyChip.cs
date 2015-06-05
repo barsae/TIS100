@@ -12,8 +12,6 @@ namespace TIS100 {
         public Number Acc { get; set; }
         public Number Bak { get; set; }
 
-        private bool jumpedThisTick;
-
         public AssemblyChip(RW up, RW right, RW down, RW left, IEnumerable<IOperation> operations)
                 : base(up, right, down, left) {
             this.Operations = operations.ToList();
@@ -22,39 +20,8 @@ namespace TIS100 {
         }
 
         public override void Execute() {
-            NormalizeIp();
-
-            jumpedThisTick = false;
-            if (Operations[Ip].Execute(this) && !jumpedThisTick) {
-                Ip++;
-            }
-
-            NormalizeIp();
-        }
-
-        public bool Jump(RWRef to, bool relative = false) {
-            var source = to.Reference(this);
-
-            if (source.Readable()) {
-                jumpedThisTick = true;
-
-                if (relative) {
-                    Ip = source.Read().Value;
-                } else {
-                    Ip = source.Read().Value;
-                }
-                return true;
-            }
-            return false;
-        }
-
-        private void NormalizeIp() {
-            if (Ip < 0) {
-                Ip = 0;
-            }
-            if (Ip >= Operations.Count) {
-                Ip = 0;
-            }
+            var result = Operations[Ip].Execute(this);
+            result.Apply(this);
         }
     }
 }
