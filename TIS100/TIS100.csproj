@@ -48,6 +48,7 @@
     <Compile Include="AssemblyChip.cs" />
     <Compile Include="BaseChip.cs" />
     <Compile Include="Compiler.cs" />
+    <Compile Include="ConsoleStream.cs" />
     <Compile Include="InputStream.cs" />
     <Compile Include="Operations\OperationResult.cs" />
     <Compile Include="Operations\Sav.cs" />

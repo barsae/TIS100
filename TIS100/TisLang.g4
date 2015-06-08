@@ -11,13 +11,14 @@ program : expression*;
 
 expression : label
            | instruction
+           | EOL
            ;
 
 label : SYMBOL ':' EOL;
 
-instruction : SYMBOL (','? SYMBOL)*;
+instruction : SYMBOL (','? SYMBOL)* EOL;
 
 SYMBOL : [a-zA-Z_][a-zA-Z0-9_]*;
 INTEGER : '-'?[0-9]+;
-EOL : ('\r\n' | '\r' | '\n');
+EOL : ('\r\n' | '\r' | '\n' | EOF);
 WHITESPACE : (' ' | '\t') -> channel(HIDDEN);

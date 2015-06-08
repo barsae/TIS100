@@ -38,4 +38,16 @@ namespace TIS100 {
             return ((AssemblyChip)chip).Acc;
         }
     }
+
+    public class NumberRef : RWRef {
+        private Number number;
+
+        public NumberRef(Number number) {
+            this.number = number;
+        }
+
+        public RW Reference(BaseChip chip) {
+            return number;
+        }
+    }
 }
