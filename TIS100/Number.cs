@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace TIS100 {
-    public class Number : RW {
+    public struct Number {
         private int value;
 
         public Number(int value) {
@@ -21,24 +21,8 @@ namespace TIS100 {
             return this.value.ToString();
         }
 
-        public bool Readable() {
-            return true;
-        }
-
-        public bool Writeable() {
-            return true;
-        }
-
-        public Number Read() {
-            return this;
-        }
-
-        public void Write(Number newValue) {
-            this.value = newValue.value;
-        }
-
-        public Number Copy() {
-            return new Number(value);
+        public int ToInteger() {
+            return value;
         }
 
         public static Number operator+(Number one, Number two) {
@@ -51,10 +35,6 @@ namespace TIS100 {
         
         public static Number operator-(Number one, Number two) {
             return new Number(one.value - two.value);
-        }
-
-        public int ToInteger() {
-            return value;
         }
     }
 }

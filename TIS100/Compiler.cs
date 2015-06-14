@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using TIS100.Operations;
+using TIS100.RWs;
 using TIS100.TisLang;
 
 namespace TIS100 {
@@ -26,7 +27,8 @@ namespace TIS100 {
                 var eol = expression.EOL();
 
                 if (label != null) {
-                    Labels[label.SYMBOL().GetText()] = ip;
+                    var name = label.SYMBOL().GetText().ToUpper();
+                    Labels[name] = ip;
                 } else if (instruction != null) {
                     ip++;
                 } else if (eol != null) {
@@ -52,18 +54,17 @@ namespace TIS100 {
 
                 if (label != null) {
                 } else if (instruction != null) {
-                    var symbols = instruction.SYMBOL();
-                    var name = symbols[0].GetText();
+                    var name = instruction.SYMBOL().GetText();
                     var instructionType = GetInstructionType(name);
                     var constructorArgumentCount = GetConstructorArgumentCount(instructionType);
 
-                    if (symbols.Count != constructorArgumentCount + 1) {
-                        throw new Exception(string.Format("Instruction {0} takes exactly {1} arguments", name, constructorArgumentCount));
+                    var rawArguments = instruction.argumentList().argument();
+                    if (rawArguments.Count != constructorArgumentCount) {
+                        throw new Exception(string.Format("Instruction '{0}' takes exactly {1} arguments", name, constructorArgumentCount));
                     }
 
-                    var arguments = symbols.Skip(1)
-                                           .Select(sym => GetArgument(sym.GetText(), labels))
-                                           .ToArray();
+                    var arguments = rawArguments.Select(arg => GetArgument(arg, labels))
+                                                .ToArray();
                     var op = (IOperation)Activator.CreateInstance(instructionType, arguments);
                     Operations.Add(op);
                 } else if (eol != null) {
@@ -85,24 +86,26 @@ namespace TIS100 {
                                   .Count();
         }
 
-        private RWRef GetArgument(string symbol, Dictionary<string, int> labels) {
-            symbol = symbol.ToUpper();
+        private object GetArgument(TisLangParser.ArgumentContext arg, Dictionary<string, int> labels) {
+            var symbol = arg.SYMBOL();
+            var integer = arg.INTEGER();
 
-            if (symbol == "UP") {
-                return new Up();
-            } else if (symbol == "RIGHT") {
-                return new Right();
-            } else if (symbol == "DOWN") {
-                return new Down();
-            } else if (symbol == "LEFT") {
-                return new Left();
-            } else if (symbol == "ACC") {
-                return new Acc();
-            } else if (labels.ContainsKey(symbol)) {
-                return new NumberRef(new Number(labels[symbol]));
+            if (symbol != null) {
+                var name = symbol.GetText().ToUpper();
+                if (IsConnection(name)) {
+                    return new ConnectionRef(name);
+                } else {
+                    return labels[name];
+                }
+            } else if (integer != null) {
+                return new ConstantRWRef(new ConstantRW(new Number(Int32.Parse(integer.GetText()))));
             }
 
-            throw new Exception(string.Format("Unknown reference: {0}", symbol));
+            throw new NotImplementedException();
+        }
+
+        private bool IsConnection(string arg) {
+            return arg == "UP" || arg == "RIGHT" || arg == "DOWN" || arg == "LEFT" || arg == "ACC";
         }
     }
 

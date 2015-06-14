@@ -16,7 +16,13 @@ expression : label
 
 label : SYMBOL ':' EOL;
 
-instruction : SYMBOL (','? SYMBOL)* EOL;
+instruction : SYMBOL argumentList EOL;
+
+argumentList : (argument (COMMA? argument)*)?;
+
+argument : SYMBOL
+         | INTEGER
+         ;
 
 SYMBOL : [a-zA-Z_][a-zA-Z0-9_]*;
 INTEGER : '-'?[0-9]+;
