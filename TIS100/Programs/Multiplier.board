@@ -1,0 +1,9 @@
+
+@1 0 0 AssemblyChip
+@2 1 0 AssemblyChip
+@3 1 1 AssemblyChip
+@4 1 2 AssemblyChip
+@5 2 0 AssemblyChip
+@6 0 -1 ConsoleChip
+@7 1 -1 ConsoleChip
+@8 1 3 ConsoleChip

@@ -9,8 +9,8 @@ namespace TIS100 {
     public class Program {
         static void Main(string[] args) {
             var board = new Board();
-            BoardReader.Load(@"Programs\Triplicator.board", board);
-            AssemblyReader.Load(@"Programs\Triplicator.asm", board);
+            BoardReader.Load(@"Programs\Multiplier.board", board);
+            AssemblyReader.Load(@"Programs\Multiplier.asm", board);
             board.ExecuteUntilBlocked();
 
             Console.WriteLine("Done");

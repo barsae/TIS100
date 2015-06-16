@@ -1,26 +1,25 @@
-﻿// using System;
-// using System.Collections.Generic;
-// using System.Linq;
-// using System.Text;
-// using System.Threading.Tasks;
-// using TIS100.Chips;
+﻿ using System;
+ using System.Collections.Generic;
+ using System.Linq;
+ using System.Text;
+ using System.Threading.Tasks;
+ using TIS100.Chips;
 
-// namespace TIS100.Operations {
-//     public class Jgz : IOperation {
-//         public RWRef Source { get; set; }
+ namespace TIS100.Operations {
+     public class Jgz : IOperation {
+        public int Ip { get; set; }
 
-//         public Jgz(RWRef source) {
-//             this.Source = source;
-//         }
+         public Jgz(int ip) {
+             this.Ip = ip;
+         }
 
-//         public IOperationResult Execute(AssemblyChip chip) {
-//             var rw = Source.Reference(chip);
-//             if (rw.Readable() && chip.Acc.Read().ToInteger() > 0) {
-//                 chip.Ip = rw.Read().ToInteger();
-//                 return OperationResult.Jump;
-//             }
+         public IOperationResult Execute(AssemblyChip chip) {
+             if (chip.Acc.Read().ToInteger() > 0) {
+                 chip.Ip = Ip;
+                 return OperationResult.Jump;
+             }
 
-//             return OperationResult.Block;
-//         }
-//     }
-// }
+             return OperationResult.Advance;
+         }
+     }
+ }

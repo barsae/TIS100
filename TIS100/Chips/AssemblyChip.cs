@@ -23,8 +23,9 @@ namespace TIS100.Chips {
 
         public override void Execute() {
             if (Operations.Count > 0) {
-                var result = Operations[Ip].Execute(this);
-                //Console.WriteLine("{0}: {1} {2}", Name, Operations[Ip], result);
+                var op = Operations[Ip];
+                var result = op.Execute(this);
+                Console.WriteLine("{0}: {1} {2}", Name, op, result);
                 result.Apply(this);
             } else {
                 this.Status = ChipStatus.Blocked;
