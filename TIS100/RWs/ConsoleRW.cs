@@ -20,13 +20,13 @@ namespace TIS100.RWs {
         }
 
         public Number Read() {
-            Console.WriteLine("> ");
+            Console.Write("> ");
             var line = Console.ReadLine();
             int value = 0;
 
             while (!Int32.TryParse(line, out value)) {
                 Console.WriteLine("{0} is not a number", line);
-                Console.WriteLine("> ");
+                Console.Write("> ");
                 line = Console.ReadLine();
             }
 

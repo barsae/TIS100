@@ -24,15 +24,15 @@ namespace TIS100.Chips {
         public override void Execute() {
             if (Operations.Count > 0) {
                 var result = Operations[Ip].Execute(this);
-                Console.WriteLine("{0}: {1} {2}", Name, Operations[Ip], result);
+                //Console.WriteLine("{0}: {1} {2}", Name, Operations[Ip], result);
                 result.Apply(this);
             } else {
                 this.Status = ChipStatus.Blocked;
             }
         }
 
-        public override RW NewRW() {
-            return new BufferRW();
+        public override RW CustomRW() {
+            return null;
         }
     }
 }

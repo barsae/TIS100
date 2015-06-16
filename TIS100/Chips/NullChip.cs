@@ -12,8 +12,8 @@ namespace TIS100.Chips {
         public override void Execute() {
         }
 
-        public override RW NewRW() {
-            return new NullRW();
+        public override RW CustomRW() {
+            return null;
         }
     }
 }

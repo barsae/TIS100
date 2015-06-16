@@ -12,7 +12,7 @@ using TIS100.RWs;
          public override void Execute() {
          }
 
-         public override RW NewRW() {
+         public override RW CustomRW() {
              return new ConsoleRW();
          }
      }

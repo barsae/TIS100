@@ -26,7 +26,9 @@ namespace TIS100 {
 
             foreach (var dir in Direction.Enumerate()) {
                 var other = GetChip(point.Add(dir));
-                var channel = new Channel(chip.NewRW(), other.NewRW());
+                var rw1 = chip.CustomRW() ?? other.CustomRW() ?? new BufferRW();
+                var rw2 = chip.CustomRW() ?? other.CustomRW() ?? new BufferRW();
+                var channel = new Channel(rw1, rw2);
                 chip.Connections[dir.Name] = channel.Terminal2;
                 other.Connections[dir.Opposite] = channel.Terminal1;
             }

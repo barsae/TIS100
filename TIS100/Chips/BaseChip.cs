@@ -24,7 +24,7 @@ namespace TIS100.Chips {
 
         public abstract void Execute();
 
-        // This allows chips to control how they are written to
-        public abstract RW NewRW();
+        // This allows chips to control how they are written to.  NULL indicates to use the default
+        public abstract RW CustomRW();
     }
 }
