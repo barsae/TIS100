@@ -25,7 +25,7 @@ namespace TIS100.Chips {
             if (Operations.Count > 0) {
                 var op = Operations[Ip];
                 var result = op.Execute(this);
-                Console.WriteLine("{0}: {1} {2}", Name, op, result);
+                //Console.WriteLine("{0}: {1} {2}", Name, op, result);
                 result.Apply(this);
             } else {
                 this.Status = ChipStatus.Blocked;

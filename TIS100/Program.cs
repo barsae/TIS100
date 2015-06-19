@@ -8,13 +8,15 @@ using TIS100.Operations;
 namespace TIS100 {
     public class Program {
         static void Main(string[] args) {
-            var board = new Board();
-            BoardReader.Load(@"Programs\Multiplier.board", board);
-            AssemblyReader.Load(@"Programs\Multiplier.asm", board);
-            board.ExecuteUntilBlocked();
+            if (args.Length != 2) {
+                Console.WriteLine("Usage: TIS100.exe <asm filename> <board filename>");
+                return;
+            }
 
-            Console.WriteLine("Done");
-            Console.ReadKey(true);
+            var board = new Board();
+            BoardReader.Load(args[1], board);
+            AssemblyReader.Load(args[0], board);
+            board.ExecuteUntilBlocked();
         }
     }
 }
