@@ -3,7 +3,7 @@
 This is a fun side project to emulate the solutions to Zachtronics game "[TIS-100](http://www.zachtronics.com/tis-100/)."
 
 ## Download
-Get the Windows executable _here_
+Get the Windows executable [here](https://github.com/barsae/TIS100/raw/master/Artifacts/TIS100-1.0.0.0.zip)
 
 ## Usage
 To run the emulator, execute `TIS100.exe <asm filename> <board filename>` from the command line.  The expected file formats are explained below.
