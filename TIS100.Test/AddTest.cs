@@ -18,6 +18,15 @@ namespace TIS100.Test
         ConnectionRef ACC { get { return new ConnectionRef("ACC"); } }
 
         [TestMethod]
+        public void Addition_Within_Limits_Works()
+        {
+            var inQueue = new List<int> { 1, -1, 1, 1, -999, 1, -999, 0, 999, -999, 999, -333 };
+            var expectedOutQueue = new List<int> { 0, 2, -998, -999, 0, 666 };
+
+            AssertAddOutputMatches(inQueue, expectedOutQueue);
+        }
+
+        [TestMethod]
         public void Upper_Limit_Is_999()
         {
             var inQueue = new List<int> { 999, 1 };
