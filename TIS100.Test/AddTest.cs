@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -19,38 +20,30 @@ namespace TIS100.Test
         [TestMethod]
         public void Upper_Limit_Is_999()
         {
-            var board = new Board();
-            var chip = new AssemblyChip();
-            var input = new InputRW(new List<int>{999,1});
-            var output = new OutputRW();
+            var inQueue = new List<int> { 999, 1 };
+            var expectedOutQueue = new List<int> { 999 };
 
-            chip.Operations = new List<IOperation>
-            {
-                new Mov(UP,ACC),
-                new Add(UP),
-                new Mov(ACC, DOWN)
-            };
-
-            board.Install(chip, new Point(0,0));
-            chip.Connections[UP.RefName] = input;
-            chip.Connections[DOWN.RefName] = output;
-
-            board.ExecuteUntilBlocked();
-
-            Assert.AreEqual("999", output.ToString());
+            AssertAddOutputMatches(inQueue, expectedOutQueue);
         }
 
         [TestMethod]
         public void Lower_Limit_Is_Minus999()
         {
+            var inQueue = new List<int> { -999, -1 };
+            var expectedOutQueue = new List<int> { -999 };
+            AssertAddOutputMatches(inQueue, expectedOutQueue);
+        }
+
+        private void AssertAddOutputMatches(List<int> inQueue, List<int> expectedOutQueue)
+        {
             var board = new Board();
             var chip = new AssemblyChip();
-            var input = new InputRW(new List<int> { -999, -1 });
+            var input = new InputRW(inQueue);
             var output = new OutputRW();
 
             chip.Operations = new List<IOperation>
             {
-                new Mov(UP,ACC),
+                new Mov(UP, ACC),
                 new Add(UP),
                 new Mov(ACC, DOWN)
             };
@@ -60,8 +53,10 @@ namespace TIS100.Test
             chip.Connections[DOWN.RefName] = output;
 
             board.ExecuteUntilBlocked();
-
-            Assert.AreEqual("-999", output.ToString());
+            var expectedOutput = expectedOutQueue
+                .Select(a => a.ToString())
+                .Aggregate((a, b) => a + ", " + b);
+            Assert.AreEqual(expectedOutput, output.ToString());
         }
     }
 }
