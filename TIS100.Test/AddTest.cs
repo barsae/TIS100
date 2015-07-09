@@ -39,5 +39,29 @@ namespace TIS100.Test
 
             Assert.AreEqual("999", output.ToString());
         }
+
+        [TestMethod]
+        public void Lower_Limit_Is_Minus999()
+        {
+            var board = new Board();
+            var chip = new AssemblyChip();
+            var input = new InputRW(new List<int> { -999, -1 });
+            var output = new OutputRW();
+
+            chip.Operations = new List<IOperation>
+            {
+                new Mov(UP,ACC),
+                new Add(UP),
+                new Mov(ACC, DOWN)
+            };
+
+            board.Install(chip, new Point(0, 0));
+            chip.Connections[UP.RefName] = input;
+            chip.Connections[DOWN.RefName] = output;
+
+            board.ExecuteUntilBlocked();
+
+            Assert.AreEqual("-999", output.ToString());
+        }
     }
 }
