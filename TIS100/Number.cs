@@ -8,7 +8,7 @@ namespace TIS100 {
         private int value;
 
         public Number(int value) {
-            this.value = value;
+            this.value = Math.Max(-999, Math.Min(value, 999));
         }
 
         public static IEnumerable<Number> Convert(IEnumerable<int> values) {
